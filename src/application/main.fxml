@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
+
+<VBox xmlns="http://javafx.com/javafx" 
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="application.MainController"
+      spacing="10" alignment="TOP_CENTER"
+      fillWidth="true">
+
+    <MenuBar>
+        <Menu text="Программа">
+            <MenuItem text="О программе" onAction="#showAbout"/>
+        </Menu>
+    </MenuBar>
+
+    <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+
+        <Tab text="Ввод данных">
+            <SplitPane dividerPositions="0.6" orientation="HORIZONTAL">
+                <!-- Левая часть: поля для ввода пролётов -->
+                <VBox spacing="10" maxHeight="Infinity">
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="Количество пролётов:"/>
+                        <TextField fx:id="numSpansField" prefWidth="80"/>
+                        <Button text="Применить" onAction="#applyNumSpans"/>
+                    </HBox>
+                    <ScrollPane fx:id="inputScrollPane" fitToWidth="true" fitToHeight="true" VBox.vgrow="ALWAYS">
+                        <VBox fx:id="spansVBox" spacing="10"/>
+                    </ScrollPane>
+                    <Button text="Рассчитать" onAction="#calculate" style="-fx-font-weight: bold;" maxWidth="Infinity"/>
+                    <TextArea fx:id="reportArea" prefHeight="150" wrapText="true" editable="false" minHeight="100"/>
+                </VBox>
+                <!-- Правая часть: инструкция -->
+                <TextArea fx:id="instructionText" wrapText="true" editable="false" maxHeight="Infinity" VBox.vgrow="ALWAYS"/>
+            </SplitPane>
+        </Tab>
+
+        <Tab text="Результаты">
+            <VBox spacing="10" maxHeight="Infinity">
+                <TableView fx:id="supportsTable" minHeight="150" prefHeight="200" maxHeight="300" VBox.vgrow="NEVER">
+                    <columns>
+                        <TableColumn fx:id="supportNumColumn" text="Опора №" prefWidth="60"/>
+                        <TableColumn fx:id="distanceColumn" text="Расстояние от начала (м)" prefWidth="150"/>
+                        <TableColumn fx:id="momentColumn" text="Момент (кН·м)" prefWidth="120"/>
+                        <TableColumn fx:id="reactionColumn" text="Реакция (кН)" prefWidth="120"/>
+                    </columns>
+                </TableView>
+                <Label text="Опорный момент – внутренний изгибающий момент в опоре. Реакция – вертикальная сила, с которой опора действует на балку. На крайних опорах момент равен 0 (шарнир)." wrapText="true" style="-fx-font-size: 12px; -fx-text-fill: #666;"/>
+                <LineChart fx:id="momentChart" title="Эпюра изгибающих моментов" VBox.vgrow="ALWAYS" minHeight="200">
+                    <xAxis>
+                        <NumberAxis label="Длина балки (м)"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis label="Изгибающий момент (кН·м)"/>
+                    </yAxis>
+                </LineChart>
+                <Label text="Положительные значения момента (выше нуля) – балка прогибается вниз, растянуты нижние волокна. Отрицательные (ниже нуля) – балка выгибается вверх, растянуты верхние волокна. " wrapText="true" style="-fx-font-size: 12px; -fx-text-fill: #666;"/>
+            </VBox>
+        </Tab>
+
+    </TabPane>
+</VBox>

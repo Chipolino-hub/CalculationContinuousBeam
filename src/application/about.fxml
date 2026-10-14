@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx" 
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="application.AboutController"
+      spacing="15" alignment="CENTER">
+
+    <Label fx:id="aboutLabel" wrapText="true" textAlignment="CENTER" style="-fx-font-size: 14;"/>
+
+    <Button text="Закрыть" onAction="#close" prefWidth="120"/>
+</VBox>
